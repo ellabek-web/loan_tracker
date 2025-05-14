@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "537344237744",
+    "project_id": "loan-tracker-aecba",
+    "storage_bucket": "loan-tracker-aecba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537344237744:android:9189c09dc30f918ab25b75",
+        "android_client_info": {
+          "package_name": "com.example.loan_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYZdOJqDlKrbbvTqHhTzTi2l1H--XoX6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
