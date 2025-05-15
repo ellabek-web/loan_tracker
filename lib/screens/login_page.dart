@@ -83,7 +83,10 @@ Widget build(BuildContext context) {
               isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
-                      onPressed: handleLogin,
+                      // onPressed: handleLogin,
+                      onPressed: (){
+                         context.goNamed('home');
+                      },
                       child: const Text("Login"),
                     ),
             ],

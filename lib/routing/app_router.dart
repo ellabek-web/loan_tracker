@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+// import 'package:loan_tracker/screens/custom_drawer.dart';
+// import 'package:loan_tracker/screens/group_body.dart';
 import 'package:loan_tracker/screens/home_page.dart';
 import 'package:loan_tracker/screens/login_page.dart';
 import 'package:loan_tracker/screens/splash';
@@ -18,7 +19,14 @@ final GoRouter appRouter =GoRouter(
     GoRoute(path: '/home',
     name: 'home',
     builder: (context, state) => const HomePage(),),
+    
+    // GoRoute(path: '/customDrawer',
+    // name: 'customDrawer',
+    // builder: (context, state) => const CustomDrawer(),),
 
+    // GoRoute(path: '/groupBody',
+    // name: 'groupBody',
+    // builder: (context, state) => const GroupBody(),)
 
   ]
   );
