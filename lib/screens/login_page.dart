@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
         emailController.text.trim(),
         passwordController.text.trim(),
       );
-      if (mounted) context.go('login'); // or goNamed('home')
+      if (mounted) context.go('group'); // or goNamed('home')
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Login failed: ${e.toString()}"),
@@ -83,7 +83,9 @@ Widget build(BuildContext context) {
               isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
-                      onPressed: handleLogin,
+                      onPressed: (){
+                        context.go('/group');
+                      },
                       child: const Text("Login"),
                     ),
             ],
