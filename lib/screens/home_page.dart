@@ -1,43 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'custom_drawer.dart';
+import 'group_body.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-      title: Text('Loan Tracker'),
-    ),
-    body: Column(
-      children: [
-      Center(
-        child:ElevatedButton(
-          onPressed: (){
-          context.goNamed('/login' );
-        }, 
-      child: Text('home page')
-      ) ,),
-      Container(
-        height: 100,
-        width: 100,
-        color: Theme.of(context).colorScheme.primary,
+  State<HomePage> createState() => _HomePageState();
+}
 
-        child: Text('Card',
-        style: TextStyle(color:  Theme.of(context).colorScheme.onPrimary,)
-        ),
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: const CustomDrawer(),
+      appBar: AppBar(
+        // backgroundColor: Colors.grey[300],
+        elevation: 0,
+        title: const Text('account',  ),
+        // leading: Builder(
+        //   builder: (context) => IconButton(
+        //     icon: const Icon(Icons.menu,),
+        //     onPressed: () => Scaffold.of(context).openDrawer(),
+        //   ),
+        // ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined, ),
+            onPressed: () {
+              // Notification action
+            },
+          ),
+        ],
       ),
-      TextField(
-                obscureText: true, // For password input
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your password',
-                ),
-              ),
-      ]
-    ),
+      // backgroundColor: Colors.white,
+      body: const Padding(
+        padding: EdgeInsets.all(16),
+        child: GroupBody(),
+      ),
     );
   }
 }
