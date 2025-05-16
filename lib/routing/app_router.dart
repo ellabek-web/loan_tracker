@@ -5,6 +5,7 @@ import 'package:loan_tracker/screens/group_page.dart';
 // import 'package:loan_tracker/screens/group_body.dart';
 import 'package:loan_tracker/screens/home_page.dart';
 import 'package:loan_tracker/screens/login_page.dart';
+import 'package:loan_tracker/screens/signUp_page.dart';
 import 'package:loan_tracker/screens/splash';
 
 final GoRouter appRouter =GoRouter(
