@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateGroupPage extends StatefulWidget {
   const CreateGroupPage({super.key});
@@ -10,12 +11,15 @@ class CreateGroupPage extends StatefulWidget {
 class _CreateGroupPageState extends State<CreateGroupPage> {
   final TextEditingController _controller = TextEditingController();
 
-  void _submitGroup() {
-    final name = _controller.text.trim();
-    if (name.isNotEmpty) {
-      Navigator.pop(context, name); // send back to GroupBody
-    }
+void _submitGroup() {
+  final name = _controller.text.trim();
+  if (name.isNotEmpty) {
+    // You might want to save the group name or perform other actions here
+    
+    // Navigate to the group page using the correct route path
+    context.pop(_controller.text.trim());
   }
+}
 
   @override
   Widget build(BuildContext context) {

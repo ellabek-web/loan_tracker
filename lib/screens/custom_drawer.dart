@@ -17,7 +17,7 @@ class CustomDrawer extends StatelessWidget {
               radius: 40,
               backgroundImage: AssetImage(
                 'assets/images/baba.jpg',
-              ), // replace with your asset
+              ), // r0eplace with your asset
             ),
             const SizedBox(height: 10),
             const Text(
@@ -35,7 +35,25 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.notifications),
               title: const Text('Notifications'),
-              // onTap: () {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('You have no notifications')));},
+              onTap: () {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Notifications'),
+          content: const Text('No notifications.'),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );                
+              },
             ),
             ListTile(
               leading: const Icon(Icons.logout),

@@ -4,4 +4,5 @@ class RouteNames {
   static const String login = '/login';
   static const String customDrawer = '/customDrawer';
   static const String groupBody = '/groupBody';
+  static const String group = '/group';
 }
