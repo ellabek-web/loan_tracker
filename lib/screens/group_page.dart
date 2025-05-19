@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loan_tracker/screens/add_members_page.dart';
 
 class CbeStaffPage extends StatefulWidget {
   const CbeStaffPage({super.key});
@@ -51,8 +52,13 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton.icon(
-                  onPressed: () {
+                    onPressed: () {
                     // TODO: Add Member
+                    Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddMembersPage()),
+        );
+   // TODO: Add Member
                   },
                   icon: const Icon(Icons.add, size: 20),
                   label: const Text('Add'),
