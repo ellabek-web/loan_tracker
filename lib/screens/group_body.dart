@@ -49,9 +49,9 @@ class _GroupBodyState extends State<GroupBody> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.black : Colors.black;
-    final iconColor = isDark ? Colors.black : Colors.black;
+    // final isDark = Theme.of(context).brightness == Brightness.dark;
+    // final textColor = isDark ? Colors.black : Colors.black;
+    // final iconColor = isDark ? Colors.black : Colors.black;
 
     return Column(
       children: [
@@ -69,7 +69,7 @@ class _GroupBodyState extends State<GroupBody> {
                 //     const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                 // prefixIcon: Icon(Icons.search, color: iconColor),
                 hintText: 'Search group',
-                hintStyle: TextStyle(color: iconColor),
+                //hintStyle: TextStyle(color: iconColor),
                 border: InputBorder.none,
               ),
             ),
@@ -97,7 +97,7 @@ class _GroupBodyState extends State<GroupBody> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: isDark ? Colors.grey[300] : Colors.grey[200],
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Column(
@@ -107,14 +107,14 @@ class _GroupBodyState extends State<GroupBody> {
                         Text(
                           groupName,
                           style: TextStyle(
-                            color: textColor,
+                          //  color: textColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
                         Align(
                           alignment: Alignment.bottomRight,
-                          child: Icon(Icons.north_east, color: iconColor),
+                        //  child: Icon(Icons.north_east, color: iconColor),
                         ),
                       ],
                     ),
@@ -137,15 +137,19 @@ class _GroupBodyState extends State<GroupBody> {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: isDark ? Colors.grey[300] : Colors.grey[200],
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Create", style: TextStyle(color: textColor)),
+                      Text("Create", 
+                     // style:  TextStyle(color: textColor)
+                       ),
                       const SizedBox(height: 8),
-                      Icon(Icons.add, color: iconColor),
+                      Icon(Icons.add, 
+                    //  color: iconColor
+                      ),
                     ],
                   ),
                 ),

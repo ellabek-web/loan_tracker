@@ -7,6 +7,7 @@ class AppThemes {
       drawerTheme: DrawerThemeData(
         
       ),
+      
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Color(0xFFDBE2EF), // Background color of the TextField
         focusedBorder: OutlineInputBorder(
@@ -69,10 +70,34 @@ class AppThemes {
   static ThemeData darkTheme() {
     return ThemeData(
       brightness: Brightness.dark,
+      inputDecorationTheme: InputDecorationTheme(
+        // fillColor: Color(0xFFDBE2EF), // Background color of the TextField
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: Color(0xFFFFFFFF), // Set focused border color
+            width: 2.0, // Optional: you can set a custom width
+          ),
+        ),
+
+        // suffixIconColor: Color(0xFF737070), // Color of the suffix icon
+        // labelStyle: TextStyle(
+        //   color: Color(0xFF737070), // Color of the label text
+        // ),
+
+        // floatingLabelStyle: TextStyle(
+        //   color: Color(0xFF265A97), // Input text color, same as label
+        // ),
+
+        // style: TextStyle(
+        //       color: Colors.black, // Change this to your desired text color
+        //       fontSize: 16, // Optional: set your desired font size
+        //     ),
+      ),
       colorScheme: ColorScheme(
         //primary: Color(0xFF71B2FF), // Main primary color (default purple)
         primary: Color(0xFFFFFFFF),
-        secondary: Color(0xFF03DAC6), // Secondary color (default teal)
+        secondary: Color(0xFF71B2FF), // Secondary color (default teal)
         surface: Color(0xFF121212), // Background color for the app (dark gray)
         error: Color(0xFFCF6679,), // Error color for error messages (default red)
         onPrimary: Color(

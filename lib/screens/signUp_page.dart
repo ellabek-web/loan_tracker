@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-  File? _profileImage;
+ //File? _profileImage;
   bool _isLoading = false;
 
   // Future<void> _pickImage() async {
@@ -101,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
               //         : null,
               //   ),
               // ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 100),
 
               // First Name
               TextFormField(
@@ -184,6 +184,26 @@ class _SignUpPageState extends State<SignUpPage> {
                       : const Text('Sign Up', style: TextStyle(fontSize: 16)),
                 ),
               ),
+
+
+               Row(
+               // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Already have account?"),
+                  TextButton(
+                    onPressed: () {
+                      context.goNamed('login');
+                    },
+                    child: const Text(
+                      "Sign In",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        //color: Colors.blue, // Customize color
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

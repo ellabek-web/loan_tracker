@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loan_tracker/screens/home_page.dart';
 import 'package:loan_tracker/screens/login_page.dart';
 import 'package:loan_tracker/screens/signUp_page.dart';
-import 'package:loan_tracker/screens/splash';
+import 'package:loan_tracker/screens/splash.dart';
 
 final GoRouter appRouter =GoRouter(
   initialLocation: '/',
@@ -20,10 +20,14 @@ final GoRouter appRouter =GoRouter(
     GoRoute(path: '/home',
     name: 'home',
     builder: (context, state) => const HomePage(),),
+
+    GoRoute(path: '/SignUpPage',
+    name: 'SignUpPage',
+    builder: (context, state) => const SignUpPage(),),
     
     // GoRoute(path: '/customDrawer',
     // name: 'customDrawer',
-    // builder: (context, state) => const CustomDrawer(),),
+    // builder: (context, state) => c onst CustomDrawer(),),
 
     // GoRoute(path: '/groupBody',
     // name: 'groupBody',
