@@ -24,9 +24,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-         onPressed: (){
-             context.goNamed('home');
-}),
+          onPressed: () {
+            context.go('/home');
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -56,7 +57,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
                   icon: const Icon(Icons.add, size: 20),
                   label: const Text('Add'),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -73,7 +77,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
                     },
                     child: const Text('Add Expense'),
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -83,7 +90,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
                     },
                     child: const Text('Record Repayment'),
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                     ),
                   ),
                 ],
@@ -92,7 +102,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   child: const Text('Balance: +120'),
                 ),
               ),
@@ -100,25 +113,21 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
             const SizedBox(height: 16),
 
             // Dynamic content
-            Expanded(
-              child: _buildPageContent(),
-            ),
+            Expanded(child: _buildPageContent()),
           ],
         ),
       ),
     );
   }
 
-Widget _buildTagButton(String label, int index) {
+  Widget _buildTagButton(String label, int index) {
     final bool selected = _selectedTag == index;
     return InkWell(
       onTap: () => setState(() => _selectedTag = index),
       borderRadius: BorderRadius.circular(20),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
         child: Text(
           label,
           style: TextStyle(
@@ -145,9 +154,7 @@ Widget _buildTagButton(String label, int index) {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: ListTile(
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
+                  leading: const CircleAvatar(child: Icon(Icons.person)),
                   title: Text(_users[index]),
                 ),
               ),
@@ -168,7 +175,9 @@ Widget _buildTagButton(String label, int index) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Text("Alice paid \$60 for dinner\nfor Alice, Bob, and Charlie"),
+                  child: const Text(
+                    "Alice paid \$60 for dinner\nfor Alice, Bob, and Charlie",
+                  ),
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -178,7 +187,9 @@ Widget _buildTagButton(String label, int index) {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Text("Charlie paid back Alice \$10\nfor his dinner share"),
+                    child: const Text(
+                      "Charlie paid back Alice \$10\nfor his dinner share",
+                    ),
                   ),
                 ),
               ],
@@ -189,9 +200,7 @@ Widget _buildTagButton(String label, int index) {
       case 2:
         return Container(
           padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
           child: Column(
             children: const [
               Text('You owe Alice \$X, Bob \$X'),

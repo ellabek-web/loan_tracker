@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loan_tracker/screens/create_group.dart';
-// import 'package:loan_tracker/screens/group_detail.dart';
+import 'package:loan_tracker/screens/group_page.dart';
+// import 'package:loan_tracker/screens/cbe_staff_page.dart'; /// import the detail page
 
 class GroupBody extends StatefulWidget {
   const GroupBody({super.key});
@@ -33,18 +34,8 @@ class _GroupBodyState extends State<GroupBody> {
   void _addGroup(String groupName) {
     setState(() {
       groups.add(groupName);
-      filteredGroups = groups
-          .where((group) => group.toLowerCase().contains(searchController.text.toLowerCase()))
-          .toList();
+      _filterGroups();
     });
-
-    // Navigate to group detail if needed
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => GroupDetailPage(groupName: groupName),
-    //   ),
-    // );
   }
 
   @override
@@ -56,8 +47,8 @@ class _GroupBodyState extends State<GroupBody> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? Colors.black : Colors.black;
-    final iconColor = isDark ? Colors.black : Colors.black;
+    final textColor = Colors.black;
+    final iconColor = Colors.black;
 
     return SafeArea(
       child: Scaffold(
@@ -93,12 +84,13 @@ class _GroupBodyState extends State<GroupBody> {
                   ...filteredGroups.map(
                     (groupName) => GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (_) => GroupDetailPage(groupName: groupName),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CbeStaffPage(),
+                            
+                          ),
+                        );
                       },
                       child: Container(
                         padding: const EdgeInsets.all(12),
@@ -127,7 +119,6 @@ class _GroupBodyState extends State<GroupBody> {
                       ),
                     ),
                   ),
-                  // Create Group Card
                   GestureDetector(
                     onTap: () async {
                       final newGroupName = await Navigator.push<String>(
