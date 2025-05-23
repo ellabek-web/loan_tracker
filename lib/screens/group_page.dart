@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loan_tracker/screens/add_expense_page.dart';
+import 'package:loan_tracker/screens/add_members_page.dart';
+import 'package:loan_tracker/screens/record_repayment_page.dart';
 
 class CbeStaffPage extends StatefulWidget {
   const CbeStaffPage({super.key});
@@ -52,6 +55,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
                 child: ElevatedButton.icon(
                   onPressed: () {
                     // TODO: Add Member
+                    Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddMembersPage()),
+        );
                   },
                   icon: const Icon(Icons.add, size: 20),
                   label: const Text('Add'),
@@ -70,6 +77,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
                   ElevatedButton(
                     onPressed: () {
                       // TODO: Add Expense
+                      Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddExpensePage()),
+          );
                     },
                     child: const Text('Add Expense'),
                     style: ElevatedButton.styleFrom(
@@ -80,6 +91,10 @@ class _CbeStaffPageState extends State<CbeStaffPage> {
                   ElevatedButton(
                     onPressed: () {
                       // TODO: Record Repayment
+                       Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const RecordRepaymentPage()),
+          );
                     },
                     child: const Text('Record Repayment'),
                     style: ElevatedButton.styleFrom(
