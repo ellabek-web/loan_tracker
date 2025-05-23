@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -13,8 +14,16 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 3), () {
-      context.goNamed('login'); // Replace with '/login' if that's what you mean
+    Timer(Duration(seconds: 2), () {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // User is logged in
+        context.goNamed('home'); // or context.go('/home');
+      } else {
+        // Not logged in
+        context.goNamed('login'); // or context.go('/login');
+      }
     });
   }
 
