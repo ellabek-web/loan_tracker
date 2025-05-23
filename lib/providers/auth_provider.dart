@@ -27,16 +27,6 @@ class AuthProvider with ChangeNotifier {
         password: password,
       );
 
-      // 2. Upload profile image (if provided)
-      // String? profileImageUrl;
-      // if (profileImage != null) {
-      //   final Reference storageRef = _storage.ref()
-      //     .child('profile_images/${credential.user!.uid}.jpg');
-      //   await storageRef.putFile(profileImage);
-      //   profileImageUrl = await storageRef.getDownloadURL();
-      // }
-
-      // 3. Save user data to Firestore
       await _firestore.collection('users').doc(credential.user!.uid).set({
         'uid': credential.user!.uid,
         'email': email,

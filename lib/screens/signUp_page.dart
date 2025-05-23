@@ -86,20 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
           key: _formKey,
           child: Column(
             children: [
-              // Profile Image
-              // GestureDetector(
-              //   onTap: _pickImage,
-              //   child: CircleAvatar(
-              //     radius: 50,
-              //     backgroundColor: Colors.grey[200],
-              //     backgroundImage: _profileImage != null 
-              //         ? FileImage(_profileImage!) 
-              //         : null,
-              //     child: _profileImage == null
-              //         ? const Icon(Icons.add_a_photo, size: 30)
-              //         : null,
-              //   ),
-              // ),
+              
               const SizedBox(height: 100),
 
               // First Name

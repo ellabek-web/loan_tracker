@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:loan_tracker/models/group_model.dart';
 import 'package:loan_tracker/screens/group_body.dart';
 import 'package:loan_tracker/screens/group_page.dart';
 // import 'package:loan_tracker/screens/custom_drawer.dart';
@@ -24,9 +25,14 @@ final GoRouter appRouter =GoRouter(
     name: 'home',
     builder: (context, state) => const HomePage(),),
 
-    GoRoute(path: '/group',
-    name:'group',
-    builder: (context, state) => const CbeStaffPage(),),
+   GoRoute(
+  path: '/group',
+  name: 'group',
+  builder: (context, state) {
+    final group = state.extra as Group;
+    return GroupDetail(group: group);
+  },
+),
     
 
     GoRoute(path: '/SignUpPage',
