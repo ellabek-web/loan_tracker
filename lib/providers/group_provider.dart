@@ -54,16 +54,16 @@ class GroupProvider extends ChangeNotifier {
     }
   }
 
-  /// Stream of user's groups (real-time)
-  Stream<List<Group>> groupsStream(String userId) {
-    return _firestore
-        .collection('groups')
-        .where('createdBy', isEqualTo: userId)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Group.fromMap(doc.data()))
-            .toList());
-  }
+ Stream<List<Group>> groupsStream(String userId) {
+  return _firestore
+      .collection('groups')
+      .where('memberIds', arrayContains: userId)
+      .snapshots()
+      .map((snapshot) => snapshot.docs
+          .map((doc) => Group.fromMap(doc.data()))
+          .toList());
+}
+
 
   /// Set group and initialize member stream
   void setGroup(Group group) {
