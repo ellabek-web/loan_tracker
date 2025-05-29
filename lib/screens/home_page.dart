@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loan_tracker/screens/notifications_page.dart';
 import 'custom_drawer.dart';
 import 'group_body.dart';
 
@@ -27,9 +28,13 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined, ),
-            onPressed: () {
-              // Notification action
-            },
+          onPressed: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const NotificationsPage()),
+  );
+}
+
           ),
         ],
       ),

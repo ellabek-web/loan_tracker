@@ -10,7 +10,7 @@ import 'package:loan_tracker/screens/splash.dart';
 import 'package:loan_tracker/screens/signUp_page.dart';
 
 
-final GoRouter appRouter =GoRouter(
+final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(path: '/',

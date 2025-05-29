@@ -421,33 +421,39 @@ class _GroupDetailState extends State<GroupDetail> {
                   ],
                   if (!isRepayment && data['shares'] != null) ...[
                     const SizedBox(height: 8),
-                    FutureBuilder<Map<String, dynamic>>(
-                      future: _getSharesWithStatus(data['shares'] as Map<String, dynamic>, paidById, userService),
-                      builder: (context, sharesSnapshot) {
-                        if (!sharesSnapshot.hasData) {
-                          return const SizedBox();
-                        }
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: sharesSnapshot.data!.entries.map((entry) {
-                            final isCurrentUser = entry.key == currentUserId;
-                            final isPaid = entry.value['isPaid'];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Text(
-                                '• ${entry.value['name']} owes \$${entry.value['amount']}',
-                                style: TextStyle(
-                                  color: isPaid 
-                                    ? Colors.green 
-                                    : (isCurrentUser ? Colors.red : Colors.grey[700]),
-                                  fontWeight: isCurrentUser ? FontWeight.bold : FontWeight.normal,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        );
-                      },
-                    ),
+                   FutureBuilder<Map<String, Map<String, dynamic>>>(
+  future: _getSharesWithStatus(data['shares'] as Map<String, dynamic>, paidById, userService),
+  builder: (context, sharesSnapshot) {
+    if (!sharesSnapshot.hasData) {
+      return const SizedBox();
+    }
+
+    final currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: sharesSnapshot.data!.entries.map((entry) {
+        final isPaid = entry.value['isPaid'];
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2),
+          child: Text(
+            '• ${entry.value['name']} owes \$${entry.value['amount']}',
+            style: TextStyle(
+              color: (currentUserId == data['paidById'])
+                  ? (isPaid ? Colors.green : Colors.red)
+                  : (entry.key == currentUserId
+                      ? (isPaid ? Colors.green : Colors.red)
+                      : (isPaid ? Colors.green : Colors.grey[700])),
+              fontWeight: entry.key == currentUserId ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  },
+),
+
                   ],
                 ],
               ),
@@ -459,46 +465,49 @@ class _GroupDetailState extends State<GroupDetail> {
   }
 
   Future<Map<String, Map<String, dynamic>>> _getSharesWithStatus(
-    Map<String, dynamic> shares,
-    String paidById,
-    UserServiceProvider userService,
-  ) async {
-    final result = <String, Map<String, dynamic>>{};
-    final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+  Map<String, dynamic> shares,
+  String paidById,
+  UserServiceProvider userService,
+) async {
+  final result = <String, Map<String, dynamic>>{};
+  final currentUserId = FirebaseAuth.instance.currentUser?.uid;
 
-    // Get all confirmed repayments for this expense
-    final repayments = await FirebaseFirestore.instance
-        .collection('groups')
-        .doc(widget.group.id)
-        .collection('repayments')
-        .where('expenseId', isEqualTo: paidById)
-        .where('status', isEqualTo: 'confirmed')
-        .get();
+  // Get all confirmed repayments for this expense
+  final repayments = await FirebaseFirestore.instance
+      .collection('groups')
+      .doc(widget.group.id)
+      .collection('repayments')
+      .where('expenseId', isEqualTo: paidById)
+      .where('status', isEqualTo: 'confirmed')
+      .get();
 
-    for (final entry in shares.entries) {
-      final amount = (entry.value as num).toDouble();
-      if (amount > 0) {
-        try {
-          final name = await userService.getUserFullName(entry.key);
-          final totalRepaid = repayments.docs.fold(0.0, (sum, doc) {
-            if (doc['borrowerId'] == entry.key) {
-              return sum + (doc['amount'] as num).toDouble();
-            }
-            return sum;
-          });
+  for (final entry in shares.entries) {
+    if (entry.key == paidById) continue; // Skip the user who paid
 
-          result[entry.key] = {
-            'name': name,
-            'amount': amount.toStringAsFixed(2),
-            'isPaid': totalRepaid >= amount,
-          };
-        } catch (e) {
-          debugPrint('Error getting name for ${entry.key}: $e');
-        }
+    final amount = (entry.value as num).toDouble();
+    if (amount > 0) {
+      try {
+        final name = await userService.getUserFullName(entry.key);
+        final totalRepaid = repayments.docs.fold(0.0, (sum, doc) {
+          if (doc['borrowerId'] == entry.key) {
+            return sum + (doc['amount'] as num).toDouble();
+          }
+          return sum;
+        });
+
+        result[entry.key] = {
+          'name': name,
+          'amount': amount.toStringAsFixed(2),
+          'isPaid': totalRepaid >= amount,
+        };
+      } catch (e) {
+        debugPrint('Error getting name for ${entry.key}: $e');
       }
     }
-    return result;
   }
+  return result;
+}
+
 
   void _navigateToRepayment(
     BuildContext context,

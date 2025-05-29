@@ -133,42 +133,54 @@ class _RecordRepaymentPageState extends State<RecordRepaymentPage> {
     );
   }
 
-  Future<void> _submitRepayment() async {
-    setState(() => _isSubmitting = true);
-    
-    try {
-      // 1. Create repayment record
-      await FirebaseFirestore.instance
-          .collection('groups')
-          .doc(widget.group.id)
-          .collection('repayments')
-          .add({
-            'lenderId': lender,
-            'borrowerId': borrower,
-            'amount': amount,
-            'reason': reason,
-            'date': Timestamp.fromDate(selectedDate),
-            'status': 'pending',
-            'createdAt': FieldValue.serverTimestamp(),
-          });
+Future<void> _submitRepayment() async {
+  setState(() => _isSubmitting = true);
 
-      // 2. Send notification to lender (implementation depends on your notification system)
-      await _sendConfirmationNotification();
+  try {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final borrowerName = currentUser?.displayName ?? 'Someone';
 
-      setState(() => _isConfirmed = true);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to record repayment: ${e.toString()}')),
-      );
-      setState(() => _isSubmitting = false);
-    }
+    // Step 1: Create the repayment record
+    final repaymentRef = await FirebaseFirestore.instance
+        .collection('groups')
+        .doc(widget.group.id)
+        .collection('repayments')
+        .add({
+          'lenderId': lender,
+          'borrowerId': borrower,
+          'amount': amount,
+          'reason': reason,
+          'date': Timestamp.fromDate(selectedDate),
+          'status': 'pending',
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+
+    await repaymentRef.update({'id': repaymentRef.id});
+
+    // Step 2: Send notification to lender
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(lender)
+        .collection('notifications')
+        .add({
+          'type': 'repayment',
+          'repaymentId': repaymentRef.id,
+          'groupId': widget.group.id,
+          'message':
+              '$borrowerName paid \$${amount.toStringAsFixed(2)} for "$reason"',
+          'createdAt': FieldValue.serverTimestamp(),
+          'seen': false,
+        });
+
+    setState(() => _isConfirmed = true);
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to record repayment: ${e.toString()}')),
+    );
+    setState(() => _isSubmitting = false);
   }
+}
 
-  Future<void> _sendConfirmationNotification() async {
-    // Implement your notification logic here
-    // This could be Firebase Cloud Messaging, push notifications, etc.
-    debugPrint('Notification sent to ${widget.lenderName} for confirmation');
-  }
 
   Widget _buildDatePicker() {
     return ListTile(
